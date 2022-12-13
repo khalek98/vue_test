@@ -1,33 +1,46 @@
-<script setup>
+<script>
 import CircleText from "./icons/IconCircleText.vue";
+
+export default {
+  components: {
+    CircleText,
+  },
+  mounted() {
+    dw
+  }, 
+  methods: {
+    moveTitle(e) {
+      let x = Math.round(`${(e.clientX * 100) / window.innerWidth - 50}`),
+        y = Math.round(`${(e.clientY * 100) / window.innerHeight - 50}`);
+
+      this.$refs.titleRef.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+    },
+  },
+};
 </script>
 
 <template>
-  <main class="main-page">
+  <main class="main-page" @mousemove="moveTitle">
     <div class="middle-block">
       <div class="middle-block__bg">
         <div class="middle-block__circle"></div>
         <CircleText class="middle-block__rounded-text" />
       </div>
 
-      <h1 class="middle-block__header">
+      <h1 class="middle-block__header" ref="titleRef">
         FULL-CYCLE<br />
         EVENT AGENCY
       </h1>
     </div>
 
-    <RouterLink to="where" class="side-link side-link_left">where?</RouterLink>
-    <RouterLink to="who" class="side-link side-link_bottom">who?</RouterLink>
-    <RouterLink to="what" class="side-link side-link_right">what?</RouterLink>
-
-    <div class="marquees">
-      <div class="marquee marquee_left">
+    <div class="run-lines">
+      <div class="run-lines__item run-lines__item_left">
         <span>FULL-CYCLE EVENT AGENCY</span>
         <span>FULL-CYCLE EVENT AGENCY</span>
         <span>FULL-CYCLE EVENT AGENCY</span>
         <span>FULL-CYCLE EVENT AGENCY</span>
       </div>
-      <div class="marquee marquee_right">
+      <div class="run-lines__item run-lines__item_right">
         <span>FULL-CYCLE EVENT AGENCY</span>
         <span>FULL-CYCLE EVENT AGENCY</span>
         <span>FULL-CYCLE EVENT AGENCY</span>
@@ -38,7 +51,7 @@ import CircleText from "./icons/IconCircleText.vue";
 </template>
 
 <style lang="scss" scoped>
-@import "../styles/base/_variables.scss";
+@import "@/styles/base/_variables.scss";
 
 main {
   height: 100vh;
@@ -47,9 +60,11 @@ main {
 
 .middle-block {
   position: absolute;
-  width: 100vw;
   left: 50%;
   top: 50%;
+  z-index: 2;
+
+  width: 100vw;
   transform: translate(-50%, -50%);
 
   &__header {
@@ -70,7 +85,6 @@ main {
     cursor: default;
 
     transform: translate(-50%, -50%);
-    transition: all 0.6s linear;
   }
 
   &__bg {
@@ -105,56 +119,7 @@ main {
   }
 }
 
-.side-link {
-  position: absolute;
-  font-family: "Grtsk Giga";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 140%;
-  text-align: center;
-  color: $dark-grey;
-  text-decoration: none;
-  transition: color 0.3s ease-out;
-
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    border-bottom: 2px solid #ffffff;
-    width: 0;
-    transition: width 0.4s ease-in-out;
-  }
-
-  &:hover {
-    color: white;
-
-    &:before {
-      width: 100%;
-      border-bottom: 2px solid #ffffff;
-    }
-  }
-
-  &_left {
-    left: -22px;
-    top: 50%;
-    transform: rotate(-90deg);
-  }
-
-  &_right {
-    top: 50%;
-    right: -19px;
-    transform: rotate(90deg);
-  }
-
-  &_bottom {
-    bottom: 19px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-.marquees {
+.run-lines {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -162,33 +127,33 @@ main {
   transform: translate(-50%, -50%) rotate(-25deg);
   z-index: -99;
   cursor: pointer;
-}
 
-.marquee {
-  width: max-content;
+  &__item {
+    width: max-content;
 
-  font-family: "Grtsk Giga";
-  font-style: italic;
-  font-weight: 700;
-  font-size: 52px;
-  line-height: 70px;
-  text-align: center;
-  text-transform: uppercase;
-  color: rgba(#000000, 0.1);
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 1px;
+    font-family: "Grtsk Giga";
+    font-style: italic;
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    color: rgba(#000000, 0.1);
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
 
-  animation-iteration-count: infinite;
-  animation-duration: 16s;
-  animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 16s;
+    animation-timing-function: linear;
 
-  &_left {
-    transform: rotate(180deg);
-    animation-name: marqueeRotate;
-  }
+    &_left {
+      transform: rotate(180deg);
+      animation-name: marqueeRotate;
+    }
 
-  &_right {
-    animation-name: marquee;
+    &_right {
+      animation-name: marquee;
+    }
   }
 }
 </style>

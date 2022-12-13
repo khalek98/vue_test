@@ -17,16 +17,25 @@ import LogoIcon from "./icons/IconLogo.vue";
     <RouterLink to="/" class="logo">
       <LogoIcon />
     </RouterLink>
+
+    <nav class="nav">
+      <RouterLink to="where" class="nav-link nav-link_left">where?</RouterLink>
+      <RouterLink to="who" class="nav-link nav-link_bottom">who?</RouterLink>
+      <RouterLink to="what" class="nav-link nav-link_right">what?</RouterLink>
+    </nav>
   </header>
 </template>
 
 <style lang="scss" scoped>
+@import "@/styles/base/_variables.scss";
+
 header {
   position: absolute;
   width: 100%;
   padding-top: 32px;
   margin: 0 auto;
-  z-index: 1;
+  pointer-events: none;
+  z-index: 99;
 }
 
 .logo {
@@ -34,14 +43,19 @@ header {
   justify-content: center;
 
   svg {
-    paint-order: stroke;
+    // paint-order: stroke;
+    pointer-events: all;
+
     :deep(path) {
-      fill: black;
+      // fill: transparent;
+      stroke-width: 0.2px;
       stroke: black;
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 0;
-      stroke-width: 0px;
-      animation: draw 6s cubic-bezier(0.51, 0.29, 0.09, 1) 1;
+      // stroke-dashoffset: 1000;
+      // fill: black;
+      // stroke-dasharray: 1000;
+      // stroke-dashoffset: 0;
+      // stroke-width: 0px;
+      // animation: draw 6s cubic-bezier(0.51, 0.29, 0.09, 1) 1;
     }
   }
 }
@@ -55,6 +69,7 @@ header {
   display: flex;
   column-gap: 15px;
   border-radius: 100%;
+  pointer-events: all;
   cursor: pointer;
 
   &__trigger {
@@ -155,6 +170,66 @@ header {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     border-right: 1px solid transparent;
+  }
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  &-link {
+    position: absolute;
+    font-family: "Grtsk Giga";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+    text-align: center;
+    color: $dark-grey;
+    text-decoration: none;
+    transition: color 0.3s ease-out;
+    pointer-events: all;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      border-bottom: 2px solid #ffffff;
+      width: 0;
+      transition: width 0.4s ease-in-out;
+    }
+
+    &:hover {
+      color: white;
+
+      &:before {
+        width: 100%;
+        border-bottom: 2px solid #ffffff;
+      }
+    }
+
+    &_left {
+      left: 0;
+      top: 50%;
+      transform: rotate(-90deg) translateY(-50%);
+    }
+
+    &_right {
+      top: 50%;
+      right: 0;
+      transform: rotate(90deg) translateY(-50%);
+    }
+
+    &_bottom {
+      bottom: 19px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }
 
