@@ -1,0 +1,9 @@
+<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<path d="M12 28.05H27V13.05H12V28.05Z" fill="url(#pattern0)"/>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_0_68" transform="scale(0.00625)"/>
+</pattern>
+<image id="image0_0_68" width="160" height="160" xlink:href="../tongue.png"/>
+</defs>
+</svg>
