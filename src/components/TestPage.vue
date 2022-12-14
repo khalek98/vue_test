@@ -5,17 +5,25 @@ export default {
   components: {
     CircleText,
   },
-  mounted() {
-    dw
-  }, 
   methods: {
     moveTitle(e) {
+      if (window.innerWidth <= 600) {
+        this.$refs.titleRef.style.transform = `translate(-50%, -50%)`;
+        return;
+      }
+
       let x = Math.round(`${(e.clientX * 100) / window.innerWidth - 50}`),
         y = Math.round(`${(e.clientY * 100) / window.innerHeight - 50}`);
 
       this.$refs.titleRef.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
     },
   },
+  props: {
+    headers: {
+      type: String,
+      required: true
+    }
+  }
 };
 </script>
 
@@ -28,8 +36,7 @@ export default {
       </div>
 
       <h1 class="middle-block__header" ref="titleRef">
-        FULL-CYCLE<br />
-        EVENT AGENCY
+        {{ headers }}
       </h1>
     </div>
 
@@ -109,8 +116,8 @@ main {
     position: absolute;
     width: 118px;
     height: 118px;
-    left: 437px;
-    top: 437px;
+    bottom: 23px;
+    right: 23px;
     animation: rotateRoundedText 3s infinite cubic-bezier(1, 1, 0, 0) paused;
 
     &:hover {
@@ -135,12 +142,12 @@ main {
     font-style: italic;
     font-weight: 700;
     font-size: 52px;
-    line-height: 70px;
+    line-height: 110%;
     text-align: center;
     text-transform: uppercase;
     color: rgba(#000000, 0.1);
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-width: 2px;
 
     animation-iteration-count: infinite;
     animation-duration: 16s;
@@ -155,6 +162,110 @@ main {
       animation-name: marquee;
     }
   }
+
+}
+
+
+@media (max-width: 1440px) {
+  .run-lines {
+    transform: translate(-50%, -50%) rotate(-30deg);
+  }
+}
+
+@media (max-width: 1200px) {
+  .middle-block {
+    &__bg {
+      height: 482px;
+      width: 482px;
+    }
+
+    &__rounded-text {
+      width: 112px;
+      height: 112px;
+      bottom: 17px;
+      right: 22px;
+    }
+
+    &__header {
+
+      font-size: 58px;
+    }
+  }
+
+  .run-lines {
+    transform: translate(-50%, -50%) rotate(-40deg);
+
+    &__item {
+      font-size: 42px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .middle-block {
+    &__header {
+      max-width: 600px;
+    }
+  }
+
+  .run-lines {
+    transform: translate(-50%, -50%) rotate(-50deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .middle-block {
+    &__header {
+      font-size: 46px;
+      max-width: 80%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .middle-block {
+    &__bg {
+      height: 332px;
+      width: 332px;
+    }
+
+    &__rounded-text {
+      bottom: -22px;
+      right: 32px;
+      animation-play-state: running;
+    }
+
+    &__header {
+      max-width: 90%;
+      font-size: 36px;
+    }
+  }
+
+  .run-lines {
+    transform: translate(-50%, -50%) rotate(-55deg);
+  }
+
+  @media (max-width: 400px) {
+    .run-lines {
+      transform: translate(-50%, -50%) rotate(-60deg);
+    }
+
+    .middle-block {
+      &__bg {
+        height: 294px;
+        width: 294px;
+      }
+
+      &__rounded-text {
+        height: 90px;
+        width: 90px;
+      }
+
+      &__header {
+        font-size: 32px;
+      }
+    }
+  }
 }
 </style>
 
@@ -163,6 +274,7 @@ main {
   0% {
     transform: rotate(0);
   }
+
   100% {
     transform: rotate(-360deg);
   }
@@ -172,6 +284,7 @@ main {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(25%);
   }
@@ -181,6 +294,7 @@ main {
   0% {
     transform: translateX(0) rotate(180deg);
   }
+
   100% {
     transform: translateX(-25%) rotate(180deg);
   }
