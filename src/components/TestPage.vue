@@ -80,6 +80,7 @@ main {
     top: 50%;
     left: 50%;
     justify-content: center;
+    width: 100%;
     max-width: 1050px;
 
     font-family: "Grtsk Giga";
