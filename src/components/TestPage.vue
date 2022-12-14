@@ -79,7 +79,8 @@ main {
     display: flex;
     top: 50%;
     left: 50%;
-    width: max-content;
+    justify-content: center;
+    max-width: 1050px;
 
     font-family: "Grtsk Giga";
     font-style: normal;
@@ -187,7 +188,7 @@ main {
     }
 
     &__header {
-
+      max-width: 850px;
       font-size: 58px;
     }
   }
