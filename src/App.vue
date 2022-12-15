@@ -1,7 +1,6 @@
 <script>
 import { RouterView } from "vue-router";
-import Header from "./components/Header.vue";
-import gsap from "gsap";
+import Header from "@/components/Header.vue";
 
 export default {
   components: {
@@ -24,7 +23,7 @@ export default {
 </template>
 
 <style lang="scss">
-@import "./styles/base/_variables.scss";
+@import "@/styles/base/_variables.scss";
 
 #app {
   position: relative;
@@ -53,7 +52,7 @@ export default {
 }
 
 .scale-slide-enter-from {
-  background-color: #ffcb46;
+  background-color: $yellow-light;
   transform: scale(1.3);
   opacity: 0;
 
@@ -74,6 +73,6 @@ export default {
 .scale-slide-leave-to {
   opacity: 0;
   transform: scale(1.3);
-  background-color: #ffcb46;
+  background-color: $yellow-light;
 }
 </style>

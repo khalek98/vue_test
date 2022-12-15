@@ -1,5 +1,5 @@
 <script>
-import CircleText from "./icons/IconCircleText.vue";
+import CircleText from "@/components/icons/IconCircleText.vue";
 
 export default {
   components: {
@@ -120,7 +120,12 @@ main {
     height: 118px;
     bottom: 23px;
     right: 23px;
-    animation: rotateRoundedText 3s infinite cubic-bezier(1, 1, 0, 0) paused;
+
+    animation-name: rotateRoundedText;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    animation-timing-function: cubic-bezier(1, 1, 0, 0);
 
     &:hover {
       animation-play-state: running;

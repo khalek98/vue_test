@@ -1,7 +1,7 @@
 <script >
 import { RouterLink } from "vue-router";
-import TongueIcon from "./icons/IconTongue.vue";
-import LogoIcon from "./icons/IconLogo.vue";
+import TongueIcon from "@/components/icons/IconTongue.vue";
+import LogoIcon from "@/components/icons/IconLogo.vue";
 
 export default {
   components: {
@@ -103,7 +103,7 @@ header {
     height: 38px;
     width: 38px;
     border-radius: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid $lang-border;
     transition: all 0.4s ease-in-out 0.4s;
     pointer-events: all;
 
@@ -136,7 +136,7 @@ header {
       top: -1px;
       left: -17px;
       width: 86px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid $lang-border;
     }
 
     &::after {
@@ -145,7 +145,7 @@ header {
       bottom: -1px;
       left: -17px;
       width: 86px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid $lang-border;
     }
 
     &:nth-child(2) {
@@ -157,7 +157,7 @@ header {
       opacity: 0;
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid $lang-border;
       border-left: 1px solid transparent;
       opacity: 0;
       transform: translateX(-70px);
@@ -198,7 +198,7 @@ header {
           opacity: 1;
           border-bottom-left-radius: 0;
           border-top-left-radius: 0;
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          border: 1px solid $lang-border;
           border-left: 1px solid transparent;
           transition: all 0.4s linear 0.2s, text-shadow 0.4s ease-in-out;
         }
@@ -412,7 +412,7 @@ header {
       align-items: center;
       row-gap: 30px;
 
-      background: #bebebe;
+      background: $bg-color;
       opacity: 0;
       visibility: hidden;
       z-index: -1;
@@ -442,7 +442,5 @@ header {
       }
     }
   }
-
-  // &__menu-button {}
 }
 </style>
