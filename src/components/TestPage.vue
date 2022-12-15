@@ -7,15 +7,22 @@ export default {
   },
   methods: {
     moveTitle(e) {
-      if (window.innerWidth <= 600) {
-        this.$refs.titleRef.style.transform = `translate(-50%, -50%)`;
+      const title = this.$refs.titleRef;
+      if (window.innerWidth <= 600 && title) {
+        title.style.transform = `translate(-50%, -50%)`;
         return;
       }
 
       let x = Math.round(`${(e.clientX * 100) / window.innerWidth - 50}`),
         y = Math.round(`${(e.clientY * 100) / window.innerHeight - 50}`);
 
-      this.$refs.titleRef.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+      // if (!(style in this.$refs.titleRef)) return;
+      try {
+        if (title)
+          title.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
   props: {
@@ -250,6 +257,10 @@ main {
 
   .run-lines {
     transform: translate(-50%, -50%) rotate(-55deg);
+
+    &__item {
+      font-size: 36px;
+    }
   }
 
   @media (max-width: 400px) {

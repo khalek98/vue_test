@@ -1,7 +1,11 @@
 <script setup>
-import TestPage from "../components/TestPage.vue";
+import TestPage from "@/components/TestPage.vue";
+import Header from "@/components/Header.vue";
 </script>
 
 <template>
-  <TestPage headers="Who?" />
+  <div class="wrapper">
+    <Header />
+    <TestPage headers="Who?" />
+  </div>
 </template>

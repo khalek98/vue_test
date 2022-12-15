@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "../pages/HomePage.vue";
+import HomePage from "@/pages/HomePage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,17 +12,17 @@ const router = createRouter({
     {
       path: "/what",
       name: "what",
-      component: () => import("../pages/WhatPage.vue"),
+      component: () => import("@/pages/WhatPage.vue"),
     },
     {
       path: "/where",
       name: "where",
-      component: () => import("../pages/WherePage.vue"),
+      component: () => import("@/pages/WherePage.vue"),
     },
     {
       path: "/who",
       name: "who",
-      component: () => import("../pages/WhoPage.vue"),
+      component: () => import("@/pages/WhoPage.vue"),
     },
   ],
 });

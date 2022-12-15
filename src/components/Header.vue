@@ -10,7 +10,13 @@ export default {
   },
   data() {
     return {
-      isOpenMenu: false
+      isOpenMenu: false,
+      isOpenLang: false,
+      routerLinkLabel: {
+        who: 'who?',
+        where: 'where?',
+        what: "what?"
+      }
     }
   },
   methods: {
@@ -19,6 +25,10 @@ export default {
     },
     closeMenu() {
       this.isOpenMenu = false;
+    },
+    toggleLang() {
+      if (window.innerWidth > 600) return;
+      this.isOpenLang = !this.isOpenLang;
     }
   }
 }
@@ -27,8 +37,8 @@ export default {
 <template>
   <header>
     <div class="container">
-      <div class="lang">
-        <div class="lang__trigger">
+      <div class="lang" :class="{ 'lang_open': isOpenLang }">
+        <div class="lang__trigger" @click="toggleLang">
           <TongueIcon />
         </div>
         <div class="lang__item lang__item_selected">UA</div>
@@ -44,13 +54,13 @@ export default {
 
         <ul class="nav__list" :class="{ nav__list_open: isOpenMenu }">
           <li class="nav__list-item nav__list-item_right">
-            <RouterLink @click="toggleMenu" to="what">what?</RouterLink>
+            <RouterLink @click="toggleMenu" :to="routerLinkLabel.what">{{ routerLinkLabel.what }}</RouterLink>
           </li>
           <li class="nav__list-item nav__list-item_bottom">
-            <RouterLink @click="toggleMenu" to="who">who?</RouterLink>
+            <RouterLink @click="toggleMenu" :to="routerLinkLabel.who">{{ routerLinkLabel.who }}</RouterLink>
           </li>
           <li class="nav__list-item nav__list-item_left">
-            <RouterLink @click="toggleMenu" to="where">where?</RouterLink>
+            <RouterLink @click="toggleMenu" :to="routerLinkLabel.where">{{ routerLinkLabel.where }}</RouterLink>
           </li>
 
         </ul>
@@ -170,7 +180,8 @@ header {
     }
   }
 
-  &:hover {
+  &:hover,
+  &_open {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     border-right: 1px solid transparent;

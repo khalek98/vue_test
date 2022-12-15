@@ -1,0 +1,1 @@
+import{o as a,c as s,a as e,H as o,T as r}from"./index-dd97b26b.js";const t={class:"wrapper"},d={__name:"WhoPage",setup(c){return(_,n)=>(a(),s("div",t,[e(o),e(r,{headers:"Who?"})]))}};export{d as default};
