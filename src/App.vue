@@ -3,11 +3,10 @@ import { RouterView } from "vue-router";
 
 export default {
   components: {
-    RouterView
-  }
-}
+    RouterView,
+  },
+};
 </script>
-
 
 <template>
   <RouterView v-slot="{ Component }">
@@ -15,7 +14,6 @@ export default {
       <component :is="Component"></component>
     </Transition>
   </RouterView>
-
 </template>
 
 <style lang="scss">
@@ -42,33 +40,53 @@ export default {
   }
 }
 
+.transition {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+
+  height: 0;
+  width: 0;
+  visibility: hidden;
+
+  border-radius: 50%;
+  background-color: #ffcb46;
+  filter: blur(20px);
+  transform: translate(-50%, -50%);
+  transition: all 1s linear;
+}
+
 .scale-slide-enter-active,
 .scale-slide-leave-active {
-  transition: all 0.85s ease;
+  transition: all 1s linear;
 }
 
-.scale-slide-enter-from {
-  background-color: $yellow-light;
-  transform: scale(1.3);
-  opacity: 0;
-
+.scale-slide-enter-from > div.transition {
+  height: calc(100vh + 100vw);
+  width: calc(100vh + 100vw);
+  visibility: visible;
+  filter: blur(50px);
 }
 
-.scale-slide-enter-to {
-  transform: scale(1);
-  opacity: 1;
-
+.scale-slide-enter-to > div.transition {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  filter: blur(20px);
 }
 
-.scale-slide-leave-from {
-  transform: scale(1);
-  opacity: 1;
-
+.scale-slide-leave-from > div.transition {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  filter: blur(20px);
 }
 
-.scale-slide-leave-to {
-  opacity: 0;
-  transform: scale(1.3);
-  background-color: $yellow-light;
+.scale-slide-leave-to > div.transition {
+  height: calc(100vh + 100vw);
+  width: calc(100vh + 100vw);
+  visibility: visible;
+  filter: blur(50px);
 }
 </style>

@@ -1,4 +1,4 @@
-<script >
+<script>
 import { RouterLink } from "vue-router";
 import TongueIcon from "@/components/icons/IconTongue.vue";
 import LogoIcon from "@/components/icons/IconLogo.vue";
@@ -6,18 +6,20 @@ import LogoIcon from "@/components/icons/IconLogo.vue";
 export default {
   components: {
     TongueIcon,
-    LogoIcon
+    LogoIcon,
   },
   data() {
     return {
+      selectedLang: "UA",
       isOpenMenu: false,
       isOpenLang: false,
+      langs: [{ lang: "UA" }, { lang: "EN" }, { lang: "RU" }],
       routerLinkLabel: {
-        who: 'who?',
-        where: 'where?',
-        what: "what?"
-      }
-    }
+        who: "who?",
+        where: "where?",
+        what: "what?",
+      },
+    };
   },
   methods: {
     toggleMenu() {
@@ -26,23 +28,51 @@ export default {
     closeMenu() {
       this.isOpenMenu = false;
     },
+    openLang() {
+      this.isOpenLang = true;
+    },
+    closeLang() {
+      this.isOpenLang = false;
+    },
     toggleLang() {
       if (window.innerWidth > 600) return;
       this.isOpenLang = !this.isOpenLang;
-    }
-  }
-}
+    },
+    selectLang(event) {
+      this.selectedLang = event.target.innerHTML;
+      this.closeMenu();
+      console.log(this.selectedLang);
+    },
+    renderLang(arr) {
+      return arr.filter((item) => item.lang !== this.selectedLang);
+    },
+  },
+};
 </script>
 
 <template>
   <header>
     <div class="container">
-      <div class="lang" :class="{ 'lang_open': isOpenLang }">
-        <div class="lang__trigger" @click="toggleLang">
+      <div
+        class="lang"
+        @click="toggleLang"
+        @mouseover="openLang"
+        @mouseleave="closeLang"
+        :class="{ lang_open: isOpenLang }"
+      >
+        <div class="lang__trigger">
           <TongueIcon />
         </div>
-        <div class="lang__item lang__item_selected">UA</div>
-        <div class="lang__item">RU</div>
+        <ul class="lang__list">
+          <li
+            class="lang__list-item"
+            @click="selectLang"
+            v-for="item in renderLang(langs)"
+            :key="item.lang"
+          >
+            {{ item.lang }}
+          </li>
+        </ul>
       </div>
 
       <RouterLink @click="closeMenu" to="/" class="logo">
@@ -50,19 +80,28 @@ export default {
       </RouterLink>
 
       <nav class="nav">
-        <button @click="toggleMenu" class="nav__menu-button" :class="{ 'nav__menu-button_open': isOpenMenu }"></button>
+        <button
+          @click="toggleMenu"
+          class="nav__menu-button"
+          :class="{ 'nav__menu-button_open': isOpenMenu }"
+        ></button>
 
         <ul class="nav__list" :class="{ nav__list_open: isOpenMenu }">
           <li class="nav__list-item nav__list-item_right">
-            <RouterLink @click="toggleMenu" :to="routerLinkLabel.what">{{ routerLinkLabel.what }}</RouterLink>
+            <RouterLink @click="toggleMenu" :to="routerLinkLabel.what">{{
+              routerLinkLabel.what
+            }}</RouterLink>
           </li>
           <li class="nav__list-item nav__list-item_bottom">
-            <RouterLink @click="toggleMenu" :to="routerLinkLabel.who">{{ routerLinkLabel.who }}</RouterLink>
+            <RouterLink @click="toggleMenu" :to="routerLinkLabel.who">{{
+              routerLinkLabel.who
+            }}</RouterLink>
           </li>
           <li class="nav__list-item nav__list-item_left">
-            <RouterLink @click="toggleMenu" :to="routerLinkLabel.where">{{ routerLinkLabel.where }}</RouterLink>
+            <RouterLink @click="toggleMenu" :to="routerLinkLabel.where">{{
+              routerLinkLabel.where
+            }}</RouterLink>
           </li>
-
         </ul>
       </nav>
     </div>
@@ -79,7 +118,6 @@ header {
   margin: 0 auto;
   pointer-events: none;
   z-index: 99;
-
 }
 
 .logo {
@@ -105,7 +143,7 @@ header {
   display: flex;
   column-gap: 10px;
   border-radius: 100%;
-  pointer-events: none;
+  pointer-events: all;
   cursor: pointer;
 
   &__trigger {
@@ -123,68 +161,71 @@ header {
     }
   }
 
-  &__item {
-    position: relative;
-    padding: 10px 0px;
-    height: 38px;
-    width: 38px;
+  &__list {
+    display: flex;
+    list-style-type: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(50px, -50%);
+    column-gap: 10px;
 
-    font-size: 13px;
+    &-item {
+      display: flex;
+      height: 38px;
+      width: 38px;
 
-    border-radius: 100%;
-    border: 1px solid transparent;
-
-    transition: all 0.5s linear 0.4s, text-shadow 0.4s ease-in-out;
-
-    &:hover {
-      text-shadow: 0px 0px 10px black;
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: -1px;
-      left: -17px;
-      width: 86px;
-      border-top: 1px solid $lang-border;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: -17px;
-      width: 86px;
-      border-top: 1px solid $lang-border;
-    }
-
-    &:nth-child(2) {
+      visibility: hidden;
       opacity: 0;
-      transform: translateX(-50px);
-    }
 
-    &:last-child {
-      opacity: 0;
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0;
-      border: 1px solid $lang-border;
-      border-left: 1px solid transparent;
-      opacity: 0;
-      transform: translateX(-70px);
-      transition: all 0.5s linear, text-shadow 0.4s ease-in-out;
+      align-items: center;
+      font-size: 12px;
+      border-radius: 100%;
+      border: 1px solid transparent;
+      transform: translateX(-40px);
+      transition: all 0.5s linear 0.4s;
 
       &::before,
+      &:after {
+        content: "";
+        position: absolute;
+        left: -8px;
+        width: 0px;
+        opacity: 0;
+        border-top: 1px solid $lang-border;
+        transition: 0.6s;
+      }
+
+      &::before {
+        top: -1px;
+      }
+
       &::after {
-        display: none;
+        bottom: -1px;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border: 1px solid $lang-border;
+        border-left: 1px solid transparent;
+        transform: translateX(-60px);
+        transition: all 0.5s linear;
+
+        &::after,
+        &:before {
+          display: none;
+        }
       }
     }
   }
 
-  &:hover,
+  // &:hover,
   &_open {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     border-right: 1px solid transparent;
+    width: 130px;
     pointer-events: all;
 
     .lang {
@@ -194,24 +235,25 @@ header {
         border-right: 1px solid transparent;
         width: 43px;
         transition: all 0.4s ease-in-out;
-
       }
 
-      &__item {
-        width: 43px;
-        border: 1px solid transparent;
-        transition: all 0.3s linear, text-shadow 0.4s ease-in-out;
-
-        opacity: 1;
-        transform: translateX(0);
-
-        &:last-child {
+      &__list {
+        &-item {
+          visibility: visible;
           opacity: 1;
-          border-bottom-left-radius: 0;
-          border-top-left-radius: 0;
-          border: 1px solid $lang-border;
-          border-left: 1px solid transparent;
-          transition: all 0.4s linear 0.2s, text-shadow 0.4s ease-in-out;
+          transform: translateX(0);
+          transition: all 0.3s linear;
+
+          &:last-child {
+            transition: all 0.4s linear 0.2s;
+          }
+
+          &:before,
+          &:after {
+            width: 55px;
+            opacity: 1;
+            transition: 0.6s 0.3s;
+          }
         }
       }
     }
@@ -245,7 +287,7 @@ header {
       height: 1px;
       width: 20px;
       background: #000;
-      transition: all .3s;
+      transition: all 0.3s;
       transform: translate(-50%);
     }
 
@@ -280,7 +322,6 @@ header {
         color: $dark-grey;
         text-decoration: none;
         transition: color 0.3s;
-
       }
 
       &::before {
@@ -364,6 +405,16 @@ header {
       }
     }
 
+    &__list {
+      &-item {
+        height: 34px;
+        width: 38px;
+        // &:after, &::before {
+
+        // }
+      }
+    }
+
     &__item {
       font-size: 11px;
       height: 34px;
@@ -384,8 +435,52 @@ header {
 }
 
 @media (max-width: 600px) {
+  header {
+    padding-top: 24px;
+  }
+
+  .logo {
+    padding-top: 3px;
+
+    svg {
+      height: 30px;
+      width: 56px;
+    }
+  }
+
   .lang {
+    pointer-events: none;
     left: 0;
+
+    &__list {
+      column-gap: 0;
+      transform: translate(39px, -50%);
+
+      &-item {
+        font-size: 10px;
+        width: 34px;
+      }
+    }
+
+    &__trigger {
+      width: 38px !important;
+    }
+
+    &_open {
+      .lang {
+        pointer-events: all;
+
+        &__list {
+          &-item {
+            &:after,
+            &:before {
+              left: -2px;
+              width: 36px;
+            }
+          }
+        }
+      }
+    }
   }
 
   .nav {
@@ -407,7 +502,6 @@ header {
           transform: translate(-50%, -50%) rotate(-225deg);
         }
       }
-
     }
 
     &__list {
@@ -430,7 +524,6 @@ header {
       transform: translateX(20px);
       transition: all 0.3s;
 
-
       &-item {
         position: static;
         text-transform: uppercase;
@@ -449,7 +542,6 @@ header {
         opacity: 1;
         visibility: visible;
         transform: translateX(0);
-
       }
     }
   }

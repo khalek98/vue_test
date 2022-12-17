@@ -5,6 +5,11 @@ export default {
   components: {
     CircleText,
   },
+  data() {
+    return {
+      runLineLabel: "FULL-CYCLE EVENT AGENCY",
+    };
+  },
   methods: {
     moveTitle(e) {
       const title = this.$refs.titleRef;
@@ -16,21 +21,19 @@ export default {
       let x = Math.round(`${(e.clientX * 100) / window.innerWidth - 50}`),
         y = Math.round(`${(e.clientY * 100) / window.innerHeight - 50}`);
 
-      // if (!(style in this.$refs.titleRef)) return;
       try {
-        if (title)
-          title.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+        if (title) title.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     },
   },
   props: {
     headers: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 
@@ -49,16 +52,10 @@ export default {
 
     <div class="run-lines">
       <div class="run-lines__item run-lines__item_left">
-        <span>FULL-CYCLE EVENT AGENCY</span>
-        <span>FULL-CYCLE EVENT AGENCY</span>
-        <span>FULL-CYCLE EVENT AGENCY</span>
-        <span>FULL-CYCLE EVENT AGENCY</span>
+        <span v-for="(n, index) in 4" v-bind:key="index">{{ runLineLabel }}</span>
       </div>
       <div class="run-lines__item run-lines__item_right">
-        <span>FULL-CYCLE EVENT AGENCY</span>
-        <span>FULL-CYCLE EVENT AGENCY</span>
-        <span>FULL-CYCLE EVENT AGENCY</span>
-        <span>FULL-CYCLE EVENT AGENCY</span>
+        <span v-for="(n, index) in 4" v-bind:key="index">{{ runLineLabel }}</span>
       </div>
     </div>
   </main>
@@ -175,10 +172,12 @@ main {
     &_right {
       animation-name: marquee;
     }
+
+    span {
+      margin-right: 30px;
+    }
   }
-
 }
-
 
 @media (max-width: 1440px) {
   .run-lines {

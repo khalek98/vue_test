@@ -7,5 +7,6 @@ import Header from "@/components/Header.vue";
   <div class="wrapper">
     <Header />
     <TestPage headers="What?" />
+    <div class="transition"></div>
   </div>
 </template>
